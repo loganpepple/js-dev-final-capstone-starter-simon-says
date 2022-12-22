@@ -3,7 +3,6 @@
  */
 
  const startButton = document.querySelector(".js-start-button");
- // TODO: Add the missing query selectors:
  const statusSpan = document.querySelector('.js-status');
  const heading = document.querySelector('.js-heading');
  const padContainer = document.querySelector('.js-pad-container');
@@ -80,7 +79,6 @@ startButton.addEventListener("click", startButtonHandler);
  *
  */
 function startButtonHandler() {
-  // TODO: Write your code here.
   maxRoundCount = setLevel();
   roundCount++;
   startButton.classList.add('hidden');
@@ -328,7 +326,6 @@ function checkPress(color) {
  */
 
 function checkRound() {
-  // TODO: Write your code here.
   if (playerSequence.length == maxRoundCount) {
     resetGame("You won!");
   } else {
