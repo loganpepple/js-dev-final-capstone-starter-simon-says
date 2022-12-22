@@ -81,7 +81,11 @@ startButton.addEventListener("click", startButtonHandler);
  */
 function startButtonHandler() {
   // TODO: Write your code here.
-  setLevel()
+  maxRoundCount = setLevel();
+  roundCount++;
+  startButton.classList.add('hidden');
+  statusSpan.classList.remove('hidden');
+  playComputerTurn();
   return { startButton, statusSpan };
 }
 
@@ -105,7 +109,8 @@ function startButtonHandler() {
 function padHandler(event) {
   const { color } = event.target.dataset;
   if (!color) return;
-  let pad = pads.find(pad => pad.color = color);
+  let pad = pads.find(pad => pad.color == color);
+  pad.sound.currentTime = 0;
   pad.sound.play()
   checkPress(color);
   return color;
@@ -188,10 +193,11 @@ function setText(element, text) {
  */
 
 function activatePad(color) {
-  let pad = pads.find(pad => pad.color = color);
+  let pad = pads.find(pad => pad.color == color);
   pad.selector.classList.add('activated');
+  pad.sound.currentTime = 0;
   pad.sound.play();
-  setTimeout(pad.selector.classList.remove('activated'), 500);
+  setTimeout(() => pad.selector.classList.remove('activated'), 500);
 }
 
 /**
@@ -209,7 +215,11 @@ function activatePad(color) {
  */
 
 function activatePads(sequence) {
-  // TODO: Write your code here.
+  let delay = 600;
+  sequence.forEach(color => {
+    setTimeout(() => activatePad(color), delay);
+    delay += 600;
+  })
 }
 
 /**
@@ -236,9 +246,15 @@ function activatePads(sequence) {
  * sequence.
  */
  function playComputerTurn() {
-  // TODO: Write your code here.
+  padContainer.classList.add('unclickable');
+  setText(statusSpan, "The computer's turn...");
+  setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
+  playerSequence = [];
 
-  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); // 5
+  computerSequence = [...Array(roundCount)].map(pad => getRandomItem(['red', 'green', 'blue', 'yellow']));
+  activatePads(computerSequence);
+
+  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 500); // 5
 }
 
 /**
@@ -249,7 +265,13 @@ function activatePads(sequence) {
  * 2. Display a status message showing the player how many presses are left in the round
  */
 function playHumanTurn() {
-  // TODO: Write your code here.
+  padContainer.classList.remove('unclickable');
+  let remainingPresses = computerSequence.length - playerSequence.length;
+  if (remainingPresses == 1) {
+    setText(statusSpan, `1 press remaining`);
+  } else {
+    setText(statusSpan, `${remainingPresses} presses remaining`);
+  }
 }
 
 /**
@@ -275,7 +297,19 @@ function playHumanTurn() {
  *
  */
 function checkPress(color) {
-  // TODO: Write your code here.
+  playerSequence.push(color);
+  let index = playerSequence.length - 1;
+  let remainingPresses = computerSequence.length - playerSequence.length;
+  if (remainingPresses == 1) {
+    setText(statusSpan, `1 press remaining`);
+  } else {
+    setText(statusSpan, `${remainingPresses} presses remaining`)
+  }
+  if (playerSequence[index] != computerSequence[index]) {
+    resetGame("Incorrect sequence!");
+  } else {
+    if (remainingPresses == 0) checkRound();
+  }
 }
 
 /**
@@ -295,6 +329,13 @@ function checkPress(color) {
 
 function checkRound() {
   // TODO: Write your code here.
+  if (playerSequence.length == maxRoundCount) {
+    resetGame("You won!");
+  } else {
+    roundCount++;
+    setText(statusSpan, "Nice! Keep going!");
+    setTimeout(playComputerTurn, 1000);
+  }
 }
 
 /**
@@ -307,14 +348,14 @@ function checkRound() {
  * 3. Reset `roundCount` to an empty array
  */
 function resetGame(text) {
-  // TODO: Write your code here.
-
-  // Uncomment the code below:
-  // alert(text);
-  // setText(heading, "Simon Says");
-  // startButton.classList.remove("hidden");
-  // statusSpan.classList.add("hidden");
-  // padContainer.classList.add("unclickable");
+  computerSequence = [];
+  playerSequence = [];
+  roundCount = 0;
+  setText(heading, text);
+  setText(startButton, "PLAY AGAIN")
+  startButton.classList.remove("hidden");
+  statusSpan.classList.add("hidden");
+  padContainer.classList.add("unclickable");
 }
 
 /**
