@@ -8,7 +8,7 @@
  const padContainer = document.querySelector('.js-pad-container');
  const difficultyContainer = document.querySelector('.js-difficulty');
 
- const winSound = new Audio("../assets/simon-says-sound-win.mp3");
+ const winSound = new Audio("./assets/simon-says-sound-win.mp3");
 
 /**
  * VARIABLES
@@ -39,22 +39,22 @@ let computerWins = 0;
   {
     color: "red",
     selector: document.querySelector(".js-pad-red"),
-    sound: new Audio("../assets/simon-says-sound-1.mp3"),
+    sound: new Audio("./assets/simon-says-sound-1.mp3"),
   },
   {
     color: "green",
     selector: document.querySelector(".js-pad-green"),
-    sound: new Audio("../assets/simon-says-sound-2.mp3"),
+    sound: new Audio("./assets/simon-says-sound-2.mp3"),
   },
   {
     color: "blue",
     selector: document.querySelector(".js-pad-blue"),
-    sound: new Audio("../assets/simon-says-sound-3.mp3"),
+    sound: new Audio("./assets/simon-says-sound-3.mp3"),
   },
   {
     color: "yellow",
     selector: document.querySelector(".js-pad-yellow"),
-    sound: new Audio("../assets/simon-says-sound-4.mp3"),
+    sound: new Audio("./assets/simon-says-sound-4.mp3"),
   }
 ];
 
