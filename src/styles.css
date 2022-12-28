@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Microbe&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
 html {
-  background: url('../assets/background.png') no-repeat center center fixed;
   box-sizing: border-box;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -11,8 +10,9 @@ html {
 }
 
 body {
-  color: yellow;
-  font-family: 'Rubik Microbe', sans-serif;
+  color: #C8C8C8;
+  background-color: #2A2929;
+  font-family: 'Fredoka One', sans-serif;
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -20,7 +20,7 @@ body {
 }
 
 main {
-  background-color: #000;
+  background-color: #2A2929;
   padding: 40px;
 }
 
@@ -34,24 +34,26 @@ h1 {
 }
 
 .start-button {
+  font-family: 'Fredoka One', sans-serif;
   display: inline-block;
   height: 38px;
   padding: 0 30px;
-  color: yellow;
+  color: #C9C8C8;
   text-align: center;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   background-color: transparent;
-  border: 1px solid yellow;
+  border: 3px solid #C9C8C8;
+  border-radius: 5px;
+  transition: all 0.2s;
   cursor: pointer;
 }
 
 .start-button:hover {
-  color: greenyellow;
+  color: #FFFFFF;
   font-size: 18px;
-  border-color: greenyellow;
-  transform: rotate(5deg);
+  border-color: #FFFFFF;
 }
 
 .status {
@@ -62,76 +64,82 @@ h1 {
   display: grid;
   grid-template-rows: 200px 200px;
   grid-template-columns: 200px 200px;
-  grid-gap: 5px;
+  grid-gap: 3px;
   margin: 20px;
+}
+
+.pad-container div {
+  border: 5px solid #C9C8C8;
+  transition: all 0.2s;
+}
+.pad-container div:hover,
+.pad-container div:focus {
+  transform: scale(1.04);
+}
+
+.pad-container div:active,
+.pad-container div.activated {
+  transform: scale(1.07);
 }
 
 .pad-red {
   border-top-left-radius: 200px;
-  background-color: red;
+  background-color: #E86E6E;
 }
 
 .pad-red:hover,
 .pad-red:focus {
   background-color: #ff451a;
-  transform: rotate(-5deg);
 }
 
 .pad-red:active,
 .pad-red.activated {
-  background-color: #ff5c36;
-  transform: translateY(10px);
+  background-color: #FF3F3F;
 }
 
 .pad-green {
   border-top-right-radius: 200px;
-  background-color: green;
+  background-color: #75EA6E;
 }
 
 .pad-green:hover,
 .pad-green:focus {
   background-color: #8cc218;
-  transform: rotate(5deg);
 }
 
 .pad-green:active,
 .pad-green.activated {
-  background-color: #a0ea00;
-  transform: translateY(10px);
+  background-color: #48FF3E;
 }
 
 .pad-yellow {
   border-bottom-right-radius: 200px;
-  background-color: yellow;
+  background-color: #DCC46B;
 }
 
 .pad-yellow:hover,
 .pad-yellow:focus {
   background-color: #ffb900;
-  transform: rotate(5deg);
 }
 
 .pad-yellow:active,
 .pad-yellow.activated {
-  background-color: #ffca3d;
-  transform: translateY(10px);
+  background-color: #FFD43A;
 }
 
 .pad-blue {
   border-bottom-left-radius: 200px;
-  background-color: blue;
+  background-color: #6D77DE;
 }
 
 .pad-blue:hover,
 .pad-blue:focus {
   background-color: #139ddd;
-  transform: rotate(5deg);
 }
 
 .pad-blue:active,
 .pad-blue.activated {
-  background-color: #2bbcff;
-  transform: translateY(10px);
+  background-color: #3F4FFF;
 }
 
 .hidden {
