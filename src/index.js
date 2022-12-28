@@ -6,6 +6,7 @@
  const statusSpan = document.querySelector('.js-status');
  const heading = document.querySelector('.js-heading');
  const padContainer = document.querySelector('.js-pad-container');
+ const difficultyContainer = document.querySelector('.js-difficulty');
 
 /**
  * VARIABLES
@@ -81,10 +82,12 @@ startButton.addEventListener("click", startButtonHandler);
  *
  */
 function startButtonHandler() {
-  maxRoundCount = setLevel();
+  let level = Number(document.querySelector('input[name="difficulty"]:checked').value);
+  maxRoundCount = setLevel(level);
   roundCount++;
   startButton.classList.add('hidden');
   statusSpan.classList.remove('hidden');
+  difficultyContainer.classList.add('hidden');
   playComputerTurn();
   return { startButton, statusSpan };
 }
@@ -360,6 +363,7 @@ function resetGame(text) {
   statusSpan.classList.add("hidden");
   startButton.classList.remove("hidden");
   padContainer.classList.add("unclickable");
+  difficultyContainer.classList.remove("hidden");
 }
 
 /**

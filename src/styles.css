@@ -27,10 +27,23 @@ main {
 h1 {
   text-align: center;
   font-size: 40px;
+  margin: 15px 0;
+}
+
+p {
+  margin: 5px 0;
+}
+
+input[type="radio"]:checked {
+  accent-color: #C9C8C8;
 }
 
 .game-controls {
   text-align: center;
+}
+
+.difficulty {
+  margin-bottom: 20px;
 }
 
 .start-button {
