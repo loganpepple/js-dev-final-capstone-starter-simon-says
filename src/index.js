@@ -14,6 +14,8 @@ let computerSequence = []; // track the computer-generated sequence of pad press
 let playerSequence = []; // track the player-generated sequence of pad presses
 let maxRoundCount = 0; // the max number of rounds, varies with the chosen level
 let roundCount = 0; // track the number of rounds that have been played so far
+let playerWins = 0
+let computerWins = 0;
 
 /**
  *
@@ -348,10 +350,15 @@ function resetGame(text) {
   computerSequence = [];
   playerSequence = [];
   roundCount = 0;
-  setText(heading, text);
+  if (text.includes("won")) {
+    playerWins++;
+  } else {
+    computerWins++;
+  }
+  setText(heading, `${text}\nYou ${playerWins} vs CPU ${computerWins}`);
   setText(startButton, "PLAY AGAIN")
-  startButton.classList.remove("hidden");
   statusSpan.classList.add("hidden");
+  startButton.classList.remove("hidden");
   padContainer.classList.add("unclickable");
 }
 
