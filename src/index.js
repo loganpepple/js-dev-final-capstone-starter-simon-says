@@ -8,6 +8,8 @@
  const padContainer = document.querySelector('.js-pad-container');
  const difficultyContainer = document.querySelector('.js-difficulty');
 
+ const winSound = new Audio("../assets/simon-says-sound-win.mp3");
+
 /**
  * VARIABLES
  */
@@ -333,6 +335,9 @@ function checkPress(color) {
 function checkRound() {
   if (playerSequence.length == maxRoundCount) {
     resetGame("You won!");
+    winSound.play();
+    startConfetti();
+    setTimeout(stopConfetti, 2000);
   } else {
     roundCount++;
     setText(statusSpan, "Nice! Keep going!");
