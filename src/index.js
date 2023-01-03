@@ -84,8 +84,7 @@ startButton.addEventListener("click", startButtonHandler);
  *
  */
 function startButtonHandler() {
-  let level = Number(document.querySelector('input[name="difficulty"]:checked').value);
-  maxRoundCount = setLevel(level);
+  setLevel();
   roundCount++;
   startButton.classList.add('hidden');
   statusSpan.classList.remove('hidden');
@@ -116,7 +115,7 @@ function padHandler(event) {
   if (!color) return;
   let pad = pads.find(pad => pad.color == color);
   pad.sound.currentTime = 0;
-  pad.sound.play()
+  pad.sound.play();
   checkPress(color);
   return color;
 }
@@ -146,8 +145,10 @@ function padHandler(event) {
  * setLevel(8) //> returns "Please enter level 1, 2, 3, or 4";
  *
  */
-function setLevel(level = 1) {
+function setLevel(level) {
+  level ??= Number(document.querySelector('input[name="difficulty"]:checked').value);
   let rounds = [8,8,14,20,31]
+  maxRoundCount = rounds[level];
   if (level > 4) {
     return "Please enter level 1, 2, 3, or 4";
   } else {
@@ -256,7 +257,7 @@ function activatePads(sequence) {
   setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
   playerSequence = [];
 
-  computerSequence = [...Array(roundCount)].map(pad => getRandomItem(['red', 'green', 'blue', 'yellow']));
+  computerSequence.push(getRandomItem(['red', 'green', 'blue', 'yellow']));
   activatePads(computerSequence);
 
   setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 500); // 5
@@ -272,7 +273,9 @@ function activatePads(sequence) {
 function playHumanTurn() {
   padContainer.classList.remove('unclickable');
   let remainingPresses = computerSequence.length - playerSequence.length;
-  if (remainingPresses == 1) {
+  if (playerSequence.length == 0) {
+    setText(statusSpan, "Player's turn...");
+  } else if (remainingPresses == 1) {
     setText(statusSpan, `1 press remaining`);
   } else {
     setText(statusSpan, `${remainingPresses} presses remaining`);
@@ -355,6 +358,7 @@ function checkRound() {
  * 3. Reset `roundCount` to an empty array
  */
 function resetGame(text) {
+  alert(text);
   computerSequence = [];
   playerSequence = [];
   roundCount = 0;
@@ -363,6 +367,7 @@ function resetGame(text) {
   } else {
     computerWins++;
   }
+  setText(heading, "Simon Says");
   setText(heading, `${text}\nYou ${playerWins} vs CPU ${computerWins}`);
   setText(startButton, "PLAY AGAIN")
   statusSpan.classList.add("hidden");
